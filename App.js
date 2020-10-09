@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
 import Home from './components/home';
+import Cards from './components/cards';
 import Read from './components/read';
 import Speak from './components/speak';
 import Write from './components/write';
@@ -62,10 +63,10 @@ function App() {
         <hr />
         <Switch>
             <Route exact path='/' component={Home} /> 
-            <Route path='/read' component={Read} />
-            <Route path='/write' component={Write} />
+            <Route path='/cardset/:name' component={Cards} />
+            {/* <Route path='/write' component={Write} />
             <Route path='/speak' component={Speak} />
-            <Route path='/flashCards' component={flashCards} />
+            <Route path='/flashCards' component={flashCards} /> */}
             <Route path='/contact' component={Contact}></Route>
         </Switch>
         </Grid>
