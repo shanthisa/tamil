@@ -9,12 +9,12 @@ const userStyle = makeStyles(()=>({
 
 const Header = () =>{
     const classes=userStyle();
+
 return (
-    <AppBar position='static'>
+    <AppBar position='fixed'>
     <Toolbar>
     <Menu />
     <Typography className={classes.TypoStyle}>Tamil Flash Cards</Typography>
-   
     </Toolbar>
     </AppBar>
     

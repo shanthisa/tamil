@@ -33,14 +33,15 @@ export const cardSet = [
     },
 ]
 
-export const cards = [
+export const flashcards = [
     {
         id: 1,
         cardSetID: 1,
         title: 'அம்மா',
         subtitle: 'amma',
         title_en: 'Mother',
-        image: '/images/Amma.png'
+        image: '/images/Amma.png',
+        url: '/audio/amma.mp3'
     },
     {
         id: 2,
@@ -48,6 +49,52 @@ export const cards = [
         title: 'அணில்',
         subtitle: 'aNil',
         title_en: 'Squirrel',
-        image: '/images/squirrel.png'
+        image: '/images/squirrel.png',
+        url: '/audio/anil.mp3'
     },
+    {
+        id: 3,
+        cardSetID: 1,
+        title: 'ஆடு',
+        subtitle: 'Aadu',
+        title_en: 'Goat',
+        image: '/images/goat.png',
+        url: '/audio/aadu.mp3'
+    },
+    {
+        id: 4,
+        cardSetID: 1,
+        title: 'இலை',
+        subtitle: 'ilai',
+        title_en: 'leaf',
+        image: '/images/leaf.png',
+        url: '/audio/ilai.mp3'
+    },
+    {
+        id: 5,
+        cardSetID: 1,
+        title: 'இட்லி',
+        subtitle: 'idli',
+        title_en: 'idli',
+        image: '/images/idli.png',
+        url: '/audio/idli.mp3'
+    },
+    {
+        id: 6,
+        cardSetID: 1,
+        title: 'ஈட்டி',
+        subtitle: 'Eetti',
+        title_en: 'Spear',
+        image: '/images/Spear.png',
+        url: '/audio/Eetti.mp3'
+    },
+    {
+        id: 7,
+        cardSetID: 1,
+        title: 'அன்பு',
+        subtitle: 'anbu',
+        title_en: 'love',
+    },
+    
+    
 ]

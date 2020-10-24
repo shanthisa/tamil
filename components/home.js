@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ButtonBases from './CardSet';
-import {Grid} from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
-class Home extends Component{
-    render(){
-        return(
-            <div>
+class Home extends Component {
+    render() {
+        return (
+            <div style={{marginTop: '38px'}}>
                 <Grid>
-            <ButtonBases />
-        </Grid>
+                    <ButtonBases />
+                </Grid>
             </div>
         )
     }

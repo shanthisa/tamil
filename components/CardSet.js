@@ -11,6 +11,8 @@ import {cardSet} from './constants';
 //const images = cardset.map((card)=>{return{...card}});
 
 const images = cardSet;
+
+/* #region old */
 // const images = [
 //   {
 //     url: '/images/Amma.png',
@@ -31,7 +33,7 @@ const images = cardSet;
 //     width: '30%',
 //   },
 // ];
-
+/* #endregion  */
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     height: 200,
     [theme.breakpoints.down('xs')]: {
       width: '100% !important', // Overrides inline-style
-      height: 100,
+      height: 200,
     },
     '&:hover, &$focusVisible': {
       zIndex: 1,
@@ -72,12 +74,12 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.white,
   },
   imageSrc: {
+    backgroundSize: 'contain',
     position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundSize: 'cover',
     backgroundPosition: 'center 40%',
   },
   imageBackdrop: {
@@ -110,8 +112,6 @@ export default function ButtonBases() {
   const classes = useStyles();
   console.log('At button bases');
   return (
-    <div>
-    <h3>Card Sets</h3>
     <div className={classes.root}>
       {images.map((image) => (
         <ButtonBase
@@ -141,6 +141,9 @@ export default function ButtonBases() {
               className={classes.imageTitle}
             >
               {image.title}
+              <p>
+              {image.subtitle}
+              </p>
              
               <span className={classes.imageMarked} />
             </Typography>
@@ -150,6 +153,6 @@ export default function ButtonBases() {
       
       ))}
     </div>
-    </div>
+    
   );
 }
