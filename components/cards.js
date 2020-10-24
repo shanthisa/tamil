@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardContent, CardMedia, Typography, makeStyles, IconButton, SkipNextIcon, SkipPreviousIcon} from '@material-ui/core';
 import { cardSet, flashcards } from './constants';
 import { useParams } from 'react-router-dom';
-import { ArrowBack, ArrowForward, CenterFocusStrong, DonutLarge, PlayArrow } from '@material-ui/icons';
+import { ArrowBack, ArrowForward, Replay, PlayArrow } from '@material-ui/icons';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -116,8 +116,9 @@ const Cards = () => {
                 }}>
                     <ArrowBack style={{fontSize:'80'}}> </ArrowBack>
                 </IconButton>
-                <IconButton aria-label="play/pause">
-                    <PlayArrow style={{fontSize:'80'}}>Play</PlayArrow>
+                <IconButton aria-label="play/pause" onClick={()=>{audioObj.play()}}>
+                    {/* <PlayArrow style={{fontSize:'80'}}>Play</PlayArrow> */}
+                <Replay style={{fontSize: '80'}}></Replay>
                 </IconButton> 
                 <IconButton disabled={cardIndex === cards.length} onClick={() => {
                     setCardIndex(cardIndex + 1);
