@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import ButtonBases from './CardSet';
 import { Grid } from '@material-ui/core';
+import { AppTitleState } from './state';
 
-class Home extends Component {
-    render() {
+const Home =() => {
+        const appTitleContext = useContext(AppTitleState);
+        appTitleContext.setAppTitle('Tamil Flash Cards');
         return (
             <div style={{marginTop: '38px'}}>
                 <Grid>
@@ -11,7 +13,6 @@ class Home extends Component {
                 </Grid>
             </div>
         )
-    }
 }
 
 export default Home;

@@ -10,8 +10,10 @@ import flashCards from './components/flashCards';
 import {Button, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import { brown } from '@material-ui/core/colors';
-import {Grid} from '@material-ui/core';
+import {Grid, Container} from '@material-ui/core';
 import Header from './components/header';
+import {AppTitleContextProvider} from './components/state'
+
 
 
 // const useStyles = makeStyles({
@@ -30,6 +32,9 @@ function App() {
     // const classes=useStyles();
    
     return(
+
+        <AppTitleContextProvider>
+        <Container maxWidth="sm">
         <BrowserRouter>
         <div>
         <Grid container direction='column'>
@@ -72,6 +77,8 @@ function App() {
         </Grid>
         </div>
         </BrowserRouter>
+        </Container>
+        </AppTitleContextProvider>
     );
 }
 

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardContent, CardMedia, Typography, makeStyles, IconButton, SkipNextIcon, SkipPreviousIcon} from '@material-ui/core';
+import React, { useContext, useEffect, useState} from 'react';
+import { Card, CardHeader, CardContent, CardMedia, Typography, makeStyles, IconButton, SkipNextIcon, SkipPreviousIcon, Tooltip } from '@material-ui/core';
 import { cardSet, flashcards } from './constants';
 import { useParams } from 'react-router-dom';
-import { ArrowBack, ArrowForward, Replay, PlayArrow } from '@material-ui/icons';
+import { ArrowBack, ArrowForward, Replay, PlayArrow, VolumeMute, VolumeUp } from '@material-ui/icons';
+import {AppTitleState} from './state';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -67,15 +68,18 @@ const Cards = () => {
     const [cardIndex, setCardIndex] = useState(1);
     const classes = useStyles();
     let { name } = useParams();
+    const appTitleContext = useContext(AppTitleState);
+    appTitleContext.setAppTitle(name);
     let csitem = selectCardSet(name, cardsetItems)
     let cards = selectFlashCards(csitem.id);
     let card = selectCard(cards, cardIndex);
     let audioObj = new Audio(card.url);
 
+    const [volume, setVolume] = useState(true);
     console.log(cards);
 
     useEffect(() => {
-        audioObj.addEventListener("canplaythrough", event => { audioObj.play() });
+        audioObj.addEventListener("canplaythrough", event => { volume ? audioObj.play() : audioObj.VolumeMute });
     });
 
     return (
@@ -85,28 +89,20 @@ const Cards = () => {
                 {/* {audioObj.play()} */}
 
                 <div className={classes.title}>
-                <Typography variant='h5'>{card.title} </Typography>
-                <Typography variant='h5'>{card.subtitle}</Typography>
+                    <Typography variant='h5'>{card.title} </Typography>
+                    <Typography variant='h5'>{card.subtitle}</Typography>
                 </div>
                 {
                     (card.image !== undefined) ? <CardMedia className={classes.media} image={card.image} hidden={card.image !== undefined} /> : <></>
                 }
 
                 <CardContent>
-                    <Typography style={{textAlign: 'center'}} variant='h5' color='textSecondary' component='p'>
+                    <Typography style={{ textAlign: 'center' }} variant='h5' color='textSecondary' component='p'>
                         {card.title_en}
                     </Typography>
-                    {/* <div className={classes.controls}>
-          <IconButton aria-label="previous">
-             <SkipNextIcon /> <SkipPreviousIcon />
-          </IconButton>
-          <IconButton aria-label="play/pause">
-            <PlayArrowIcon className={classes.playIcon} />
-          </IconButton>
-          <IconButton aria-label="next">
-            <SkipPreviousIcon />  <SkipNextIcon />
-          </IconButton>
-        </div> */}
+                    <IconButton onClick={() => { setVolume(!volume); console.log('volume:', volume) }}>
+                        {volume ? <VolumeUp></VolumeUp> : <VolumeMute></VolumeMute>}
+                    </IconButton>
                 </CardContent>
 
             </Card>
@@ -114,16 +110,18 @@ const Cards = () => {
                 <IconButton disabled={cardIndex === 1} onClick={() => {
                     setCardIndex(cardIndex - 1);
                 }}>
-                    <ArrowBack style={{fontSize:'80'}}> </ArrowBack>
+                    <ArrowBack style={{ fontSize: '80' }}> </ArrowBack>
                 </IconButton>
-                <IconButton aria-label="play/pause" onClick={()=>{audioObj.play()}}>
-                    {/* <PlayArrow style={{fontSize:'80'}}>Play</PlayArrow> */}
-                <Replay style={{fontSize: '80'}}></Replay>
-                </IconButton> 
+                <Tooltip title='Volume should be on for replay'>
+                    <IconButton disabled={!volume} aria-label="play/pause" onClick={() => { volume && audioObj.play() }}>
+                        {/* <PlayArrow style={{fontSize:'80'}}>Play</PlayArrow> */}
+                        <Replay style={{ fontSize: '80' }}></Replay>
+                    </IconButton>
+                </Tooltip>
                 <IconButton disabled={cardIndex === cards.length} onClick={() => {
                     setCardIndex(cardIndex + 1);
                 }}>
-                    <ArrowForward style={{fontSize:'80'}}>Next</ArrowForward>
+                    <ArrowForward style={{ fontSize: '80' }}>Next</ArrowForward>
                 </IconButton>
             </div>
         </div>

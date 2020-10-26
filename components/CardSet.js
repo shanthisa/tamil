@@ -110,6 +110,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonBases() {
   const classes = useStyles();
+
   console.log('At button bases');
   return (
     <div className={classes.root}>
