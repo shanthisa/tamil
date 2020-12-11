@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 const setupContext = () => {
     
@@ -19,8 +19,8 @@ const setupContext = () => {
 }
 
 const onPageChange = (contextObj) => {
-    let location = useLocation();
-    React.useEffect(()=> contextObj.resetState(), [location]);
+    let history = useHistory();
+    history.listen(()=>{contextObj.resetState()});
 }
 
 export const AppState = React.createContext();
