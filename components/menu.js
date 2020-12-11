@@ -7,14 +7,20 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 
 
-const menuItems = [{text:'Read', link: '/read'},
-                    {text:'Write', link: '/write'}, 
-                    {text:'Speak', link:'/speak'}, 
-                    {text: 'QR Scan', link:'/'},
-                    {text: 'Home', link:'/'},
-                    {text: 'Contact Us', link:'/contact'},
-                    {text: 'Flash Cards', link:'/flashCards'}
-                ];
+// const menuItems = [{text:'Read', link: '/read'},
+//                     {text:'Write', link: '/write'}, 
+//                     {text:'Speak', link:'/speak'}, 
+//                     {text: 'QR Scan', link:'/'},
+//                     {text: 'Home', link:'/'},
+//                     {text: 'Contact Us', link:'/contact'},
+//                     {text: 'Flash Cards', link:'/flashCards'}
+//                 ];
+
+const menuItems = [{text: 'Home', link: '/'},
+{text: 'எழுத்துக்கள்/letters', link:'/cardset/எழுத்துக்கள்'},
+{text: 'பழங்கள்/Fruits', link:'/cardset/பழங்கள்'},
+{text: 'வண்ணங்கள்/Colours', link:'/cardset/வண்ணங்கள்'},
+{text: 'விலங்குகள்/animals', link:'/cardset/விலங்குகள்'}]
 
 
 

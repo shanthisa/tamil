@@ -96,7 +96,7 @@ const Cards = () => {
     
     return (
         <div className={classes.cards}>
-            <FlashCard card={card} csitem={csitem}/>
+            <FlashCard card={card} csitem={csitem} total = {cards.length}/>
             <div className={classes.nav}>
                 <IconButton disabled={appContext.cardIndex === 1} onClick={(e) => {
                     e.preventDefault();

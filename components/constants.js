@@ -96,5 +96,48 @@ export const flashcards = [
         title_en: 'love',
     },
     
+    {
+        id: 1,
+        cardSetID: 2, 
+        title: 'வாழைப்பழம்',
+        subtitle: 'vaazhaipazham',
+        title_en: 'banana',
+    },
+    {
+        id: 2,
+        cardSetID: 2, 
+        title: 'திராட்சை',
+        subtitle: 'draatchai',
+        title_en: 'grape',
+    },
+    {
+        id: 1,
+        cardSetID: 4, 
+        title: 'எருமை',
+        subtitle: 'erumai',
+        title_en: 'buffalo',
+    },
+    {
+        id: 2,
+        cardSetID: 4, 
+        title: 'யானை',
+        subtitle: 'yaanai',
+        title_en: 'elephant',
+    },
+    {
+        id: 1,
+        cardSetID: 3, 
+        title: 'சிவப்பு',
+        subtitle: 'sivappu',
+        title_en: 'red',
+    },
+    {
+        id: 2,
+        cardSetID: 3, 
+        title: 'ஊதா',
+        subtitle: 'oodhaa',
+        title_en: 'violet',
+    },
+    
     
 ]

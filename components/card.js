@@ -3,19 +3,19 @@ import React, { useContext } from 'react';
 import {
     Card, CardHeader, CardContent,
     CardMedia, Typography,
-    makeStyles, IconButton, Tooltip
+    makeStyles, IconButton, Tooltip, LinearProgress
 } from '@material-ui/core';
 import {VolumeUp, VolumeMute} from '@material-ui/icons'
 import { AppState } from './state';
 
 const useStyles = makeStyles(() => ({
     root: {
-        marginTop: 38,
+        marginTop: 50,
         //width: '95%',
     },
     title: {
         display: 'flex',
-        padding: '0 1em',
+        padding: '1em 1em',
         justifyContent: 'space-between',
     },
     
@@ -26,14 +26,14 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const FlashCard = ({ card, csitem }) => {
+const FlashCard = ({ card, csitem, total }) => {
     const classes = useStyles();
     const appContext = useContext(AppState);
     const volume = appContext.volume;
 
     return (
         <Card className={classes.root}>
-            <CardHeader title={csitem.title}></CardHeader>
+            {/* <CardHeader title={csitem.title}></CardHeader> */}
 
             
             <div className={classes.title}>
@@ -56,6 +56,10 @@ const FlashCard = ({ card, csitem }) => {
                 <IconButton onClick={() => { appContext.setVolume(!volume); console.log('volume:', volume) }}>
                     {volume ? <VolumeUp></VolumeUp> : <VolumeMute></VolumeMute>}
                 </IconButton>
+                <LinearProgress variant="determinate" value={card.id*100/total}></LinearProgress>
+                <Typography style={{ textAlign: 'center' }} component='p'>
+                    {card.id} / {total}
+                </Typography>
             </CardContent>
 
         </Card>
