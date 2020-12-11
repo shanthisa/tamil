@@ -81,7 +81,8 @@ const Cards = () => {
     let cards = selectFlashCards(csitem.id);
     let card = selectCard(cards, appContext.cardIndex);
     console.log(`card index is ${appContext.cardIndex}`);
-    let audioObj = new Audio(card.url);
+    let audioURL = appContext.success ? '/audio/success.mp3' : card.url;
+    let audioObj = new Audio(audioURL);
 
     console.log(cards);
 
@@ -92,15 +93,14 @@ const Cards = () => {
     //   })
 
     useEffect(() => {
-        if (!appContext.success) {
-            appContext.setAppTitle(name);
-            audioObj.addEventListener("canplaythrough", event => {appContext.volume ? audioObj.play() : audioObj.VolumeMute });
-        }
+        appContext.setAppTitle(name);
+        audioObj.addEventListener("canplaythrough", () => { appContext.volume ? audioObj.play() : audioObj.VolumeMute });
     });
 
     return (
         <div className={classes.cards}>
-            {appContext.success ? <Success /> :
+            {appContext.success ?
+                <Success /> :
                 <div>
                     <FlashCard card={card} csitem={csitem} total={cards.length} />
                     <div className={classes.nav}>
