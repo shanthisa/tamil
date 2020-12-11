@@ -8,6 +8,7 @@ const setupContext = () => {
     const [cardIndex, setCardIndex] = useState(1);
     const [volume, setVolume] = useState(true);
     const [success, setSuccess] = useState(false);
+    const [qrData, setqrData] = useState('');
     const resetState = () => {
         setAppTitle('Tamil Flash Cards');
         setCardIndex(1);
@@ -15,7 +16,7 @@ const setupContext = () => {
         setSuccess(false);
     }
    
-    return {appTitle, setAppTitle, cardIndex, setCardIndex, volume, setVolume, success, setSuccess, resetState};
+    return {appTitle, setAppTitle, cardIndex, setCardIndex, volume, setVolume, success, setSuccess, resetState, qrData, setqrData};
 }
 
 const onPageChange = (contextObj) => {

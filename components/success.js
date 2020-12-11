@@ -1,9 +1,11 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 import * as animationData from '../images/winning-cup.json';
+
 import { makeStyles } from '@material-ui/styles';
 
 import {Link} from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 
 const useStyle = makeStyles(()=> ({
     success: {
@@ -25,9 +27,11 @@ const Success = () => {
             width={300}
             ></Lottie>
         
+            <Typography>
             <Link to="/">
             <h3 className={classes.home}>Learn more</h3>
             </Link>
+            </Typography>
         </div>
     )
 }
