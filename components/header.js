@@ -2,7 +2,7 @@ import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import Menu from './menu';
-import { AppTitleState} from './state';
+import { AppState} from './state';
 
 const userStyle = makeStyles(() => ({
     TypoStyle: { flex: 1 }
@@ -11,8 +11,8 @@ const userStyle = makeStyles(() => ({
 const Header = () => {
     const classes = userStyle();
 
-    const appTitle = useContext(AppTitleState);
-    console.log('Header appTitleState: ', AppTitleState);
+    const appTitle = useContext(AppState);
+    console.log('Header appTitleState: ', AppState);
     console.log('Header appTitle: ', appTitle.appTitle);
     return (
        

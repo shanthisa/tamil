@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState} from 'react';
-import { Card, CardHeader, CardContent, CardMedia, Typography, makeStyles, IconButton, SkipNextIcon, SkipPreviousIcon, Tooltip } from '@material-ui/core';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
+import { Card, CardHeader, CardContent, CardMedia, Typography, makeStyles, IconButton, Tooltip } from '@material-ui/core';
 import { cardSet, flashcards } from './constants';
 import { useParams } from 'react-router-dom';
 import { ArrowBack, ArrowForward, Replay, PlayArrow, VolumeMute, VolumeUp } from '@material-ui/icons';
-import {AppTitleState} from './state';
+import { AppState } from './state';
+import {useTransition} from 'react-spring';
+import FlashCard from './card';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -39,6 +41,8 @@ const useStyles = makeStyles(() => ({
 const cardsetItems = cardSet.map((cardSetItems) => { return { ...cardSetItems } });
 const flashCards = flashcards.map((cards) => { return { ...cards } });
 
+
+
 function selectCardSet(name, cardsetItems) {
     return cardsetItems.filter((cardsetItem) => { if (name === cardsetItem.title) return cardsetItem })[0];
 }
@@ -64,65 +68,64 @@ const selectCard = (cards, cardIndex) => cards.find((c) => (c.id === cardIndex))
 
 const Cards = () => {
     // debugger
-    // let item = cardItems[0];
-    const [cardIndex, setCardIndex] = useState(1);
+    //let item = cardItems[0];
+    // const [cardIndex, setCardIndex] = useState(1);
+    
     const classes = useStyles();
     let { name } = useParams();
-    const appTitleContext = useContext(AppTitleState);
-    appTitleContext.setAppTitle(name);
+    const appContext = useContext(AppState);
+    
     let csitem = selectCardSet(name, cardsetItems)
     let cards = selectFlashCards(csitem.id);
-    let card = selectCard(cards, cardIndex);
+    let card = selectCard(cards, appContext.cardIndex);
+    console.log(`card index is ${appContext.cardIndex}`);
     let audioObj = new Audio(card.url);
 
-    const [volume, setVolume] = useState(true);
     console.log(cards);
 
-    useEffect(() => {
-        audioObj.addEventListener("canplaythrough", event => { volume ? audioObj.play() : audioObj.VolumeMute });
-    });
+    // const transitions = useTransition(appContext.cardIndex, p => p, {
+    //     from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
+    //     enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+    //     leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
+    //   })
 
+    useEffect(() => {
+        appContext.setAppTitle(name);
+        audioObj.addEventListener("canplaythrough", event => { appContext.volume ? audioObj.play() : audioObj.VolumeMute });
+    });
+    
     return (
         <div className={classes.cards}>
-            <Card className={classes.root}>
-                <CardHeader title={csitem.title}></CardHeader>
-                {/* {audioObj.play()} */}
-
-                <div className={classes.title}>
-                    <Typography variant='h5'>{card.title} </Typography>
-                    <Typography variant='h5'>{card.subtitle}</Typography>
-                </div>
-                {
-                    (card.image !== undefined) ? <CardMedia className={classes.media} image={card.image} hidden={card.image !== undefined} /> : <></>
-                }
-
-                <CardContent>
-                    <Typography style={{ textAlign: 'center' }} variant='h5' color='textSecondary' component='p'>
-                        {card.title_en}
-                    </Typography>
-                    <IconButton onClick={() => { setVolume(!volume); console.log('volume:', volume) }}>
-                        {volume ? <VolumeUp></VolumeUp> : <VolumeMute></VolumeMute>}
-                    </IconButton>
-                </CardContent>
-
-            </Card>
+            <FlashCard card={card} csitem={csitem}/>
             <div className={classes.nav}>
-                <IconButton disabled={cardIndex === 1} onClick={() => {
-                    setCardIndex(cardIndex - 1);
+                <IconButton disabled={appContext.cardIndex === 1} onClick={(e) => {
+                    e.preventDefault();
+                    audioObj.pause();
+                    appContext.setCardIndex(appContext.cardIndex - 1);
                 }}>
                     <ArrowBack style={{ fontSize: '80' }}> </ArrowBack>
                 </IconButton>
+
                 <Tooltip title='Volume should be on for replay'>
-                    <IconButton disabled={!volume} aria-label="play/pause" onClick={() => { volume && audioObj.play() }}>
+                    <IconButton disabled={!appContext.volume} aria-label="play/pause" onClick={() => { appContext.volume && audioObj.play() }}>
                         {/* <PlayArrow style={{fontSize:'80'}}>Play</PlayArrow> */}
                         <Replay style={{ fontSize: '80' }}></Replay>
                     </IconButton>
                 </Tooltip>
-                <IconButton disabled={cardIndex === cards.length} onClick={() => {
-                    setCardIndex(cardIndex + 1);
+
+
+                <IconButton disabled={appContext.cardIndex === cards.length} onClick={(e) => {
+                    e.preventDefault();
+                    audioObj.pause();
+                    appContext.setCardIndex(appContext.cardIndex + 1);
                 }}>
+                {/* {transitions.map(({item, props, key})=>{
+                    const Card = cards[item]
+                    return <Card key={key}></Card> 
+                })} */}
                     <ArrowForward style={{ fontSize: '80' }}>Next</ArrowForward>
                 </IconButton>
+
             </div>
         </div>
     )

@@ -1,15 +1,15 @@
 import React, { Component, useContext } from 'react';
-import ButtonBases from './CardSet';
+import CardSet from './CardSet';
 import { Grid } from '@material-ui/core';
-import { AppTitleState } from './state';
+import { AppState } from './state';
 
 const Home =() => {
-        const appTitleContext = useContext(AppTitleState);
+        const appTitleContext = useContext(AppState);
         appTitleContext.setAppTitle('Tamil Flash Cards');
         return (
             <div style={{marginTop: '38px'}}>
                 <Grid>
-                    <ButtonBases />
+                    <CardSet />
                 </Grid>
             </div>
         )

@@ -1,18 +1,11 @@
-import React, {Component} from 'react';
-import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
-import Home from './components/home';
+import { Container, Grid } from '@material-ui/core';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Cards from './components/cards';
-import Read from './components/read';
-import Speak from './components/speak';
-import Write from './components/write';
 import Contact from './components/contact';
-import flashCards from './components/flashCards';
-import {Button, Typography} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
-import { brown } from '@material-ui/core/colors';
-import {Grid, Container} from '@material-ui/core';
 import Header from './components/header';
-import {AppTitleContextProvider} from './components/state'
+import Home from './components/home';
+import { AppTitleContextProvider } from './components/state';
 
 
 

@@ -3,15 +3,18 @@ import React, { useState } from 'react';
 
 const setupContext = () => {
     const [appTitle, setAppTitle] = useState('Tamil Flash Cards');
-    return {appTitle, setAppTitle};
+    const [cardIndex, setCardIndex] = useState(1);
+    const [volume, setVolume] = useState(true);
+    return {appTitle, setAppTitle, cardIndex, setCardIndex, volume, setVolume};
 }
 
-export const AppTitleState = React.createContext();
+export const AppState = React.createContext();
+
 
 export const AppTitleContextProvider = (props) => {
-    let appTitleTxt = setupContext();
-    console.log('appTitleTxt in state.js : ', appTitleTxt.appTitle);
-    return <AppTitleState.Provider value={appTitleTxt}>
+    let contextObj = setupContext();
+    console.log('appTitleTxt in state.js : ', contextObj.appTitle);
+    return <AppState.Provider value={contextObj}>
         {props.children}
-    </AppTitleState.Provider>
+    </AppState.Provider>
 }

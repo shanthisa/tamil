@@ -1,83 +1,65 @@
-import React from 'react';
+// @ts-check
+import React, { useContext } from 'react';
 import {
-    Card, CardActions, CardContent, Typography,
-    Button, CardHeader, MoreVertIcon, Avatar, IconButton, CardMedia, CardActionArea
+    Card, CardHeader, CardContent,
+    CardMedia, Typography,
+    makeStyles, IconButton, Tooltip
 } from '@material-ui/core';
-import {Link} from 'react-router-dom';
-import { makeStyles } from '@material-ui/styles';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import {VolumeUp, VolumeMute} from '@material-ui/icons'
+import { AppState } from './state';
 
+const useStyles = makeStyles(() => ({
+    root: {
+        marginTop: 38,
+        //width: '95%',
+    },
+    title: {
+        display: 'flex',
+        padding: '0 1em',
+        justifyContent: 'space-between',
+    },
+    
+    media: {
+        height: 0,
+        paddingTop: '55.25%', //(16:9)
+        backgroundSize: 'contain',
+    },
+}));
 
-const useStyle = makeStyles({
-    title: { fontSize: 14, },
-    pos: { marginBottom: 12 },
-    w: { width: 245 }
-});
+const FlashCard = ({ card, csitem }) => {
+    const classes = useStyles();
+    const appContext = useContext(AppState);
+    const volume = appContext.volume;
 
-export default function ImageCard(props) {
-    const classes = useStyle();
-    const { avatarSrc, title, subtitle, description, imageSrc } = props;
     return (
-        // <Card  className={classes.w}>
-        <Card>
-            <CardHeader
-                avatar={
-                    <Avatar src={avatarSrc}>
+        <Card className={classes.root}>
+            <CardHeader title={csitem.title}></CardHeader>
 
-                    </Avatar>
-                }
-                // action={
-                //     <IconButton>
-                //         <MoreVertIcon />
-                //     </IconButton>
-                // }
-                //title="விலங்குகள்"
-                title={title}
-                //subheader="animals"
-                subheader={subtitle}
-            >
-
-
-            </CardHeader>
-            <Link to='/flashCards'>
-            <CardActionArea>
             
-            <CardMedia style={{height: "150px"}}image={imageSrc} />
-            {/* // children={<div>
-           
-            <IconButton>
-            <Link to='/contact'>
-            <PlayCircleOutlineIcon fontSize='large' color='secondary'/>
-            </Link>
-            </IconButton>
+            <div className={classes.title}>
+                <Typography variant='h5'>{card.title} </Typography>
+                <Typography variant='h5'>{card.subtitle}</Typography>
+            </div>
 
-            // </div>
+            {
+                (card.image !== undefined) ?
+                    <CardMedia className={classes.media}
+                        image={card.image}
+                        hidden={card.image !== undefined} /> : <></>
             }
-             /> */}
-             
-            </CardActionArea>
-            </Link>
+
+
             <CardContent>
-                <Typography variant="body2" color="textSecondary" >
-                    {description}
+                <Typography style={{ textAlign: 'center' }} variant='h5' color='textSecondary' component='p'>
+                    {card.title_en}
                 </Typography>
+                <IconButton onClick={() => { appContext.setVolume(!volume); console.log('volume:', volume) }}>
+                    {volume ? <VolumeUp></VolumeUp> : <VolumeMute></VolumeMute>}
+                </IconButton>
             </CardContent>
-            <CardActions>
-            
-            <IconButton>
-            
-                <PlayArrowIcon fontSize='large' color='secondary'>
-                <Link to='/contact'>Select          </Link>
-                </PlayArrowIcon>
-               
-            </IconButton>
-  
-            </CardActions>
-            
+
         </Card>
-
     )
+};
 
-}
-
+export default FlashCard;
