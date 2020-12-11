@@ -88,13 +88,6 @@ export const flashcards = [
         image: '/images/Spear.png',
         url: '/audio/Eetti.mp3'
     },
-    {
-        id: 7,
-        cardSetID: 1,
-        title: 'அன்பு',
-        subtitle: 'anbu',
-        title_en: 'love',
-    },
     
     {
         id: 1,

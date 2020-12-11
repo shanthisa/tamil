@@ -25,10 +25,10 @@ function App() {
     // const classes=useStyles();
    
     return(
-
+        <BrowserRouter>
         <AppTitleContextProvider>
         <Container maxWidth="sm">
-        <BrowserRouter>
+        
         <div>
         <Grid container direction='column'>
         <Grid item>
@@ -69,9 +69,10 @@ function App() {
         </Switch>
         </Grid>
         </div>
-        </BrowserRouter>
+        
         </Container>
         </AppTitleContextProvider>
+        </BrowserRouter>
     );
 }
 

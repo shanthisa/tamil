@@ -4,8 +4,10 @@ import { cardSet, flashcards } from './constants';
 import { useParams } from 'react-router-dom';
 import { ArrowBack, ArrowForward, Replay, PlayArrow, VolumeMute, VolumeUp } from '@material-ui/icons';
 import { AppState } from './state';
-import {useTransition} from 'react-spring';
+import { useTransition } from 'react-spring';
 import FlashCard from './card';
+import Success from './success';
+
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -70,11 +72,11 @@ const Cards = () => {
     // debugger
     //let item = cardItems[0];
     // const [cardIndex, setCardIndex] = useState(1);
-    
+
     const classes = useStyles();
     let { name } = useParams();
     const appContext = useContext(AppState);
-    
+
     let csitem = selectCardSet(name, cardsetItems)
     let cards = selectFlashCards(csitem.id);
     let card = selectCard(cards, appContext.cardIndex);
@@ -90,43 +92,53 @@ const Cards = () => {
     //   })
 
     useEffect(() => {
-        appContext.setAppTitle(name);
-        audioObj.addEventListener("canplaythrough", event => { appContext.volume ? audioObj.play() : audioObj.VolumeMute });
+        if (!appContext.success) {
+            appContext.setAppTitle(name);
+            audioObj.addEventListener("canplaythrough", event => {appContext.volume ? audioObj.play() : audioObj.VolumeMute });
+        }
     });
-    
+
     return (
         <div className={classes.cards}>
-            <FlashCard card={card} csitem={csitem} total = {cards.length}/>
-            <div className={classes.nav}>
-                <IconButton disabled={appContext.cardIndex === 1} onClick={(e) => {
-                    e.preventDefault();
-                    audioObj.pause();
-                    appContext.setCardIndex(appContext.cardIndex - 1);
-                }}>
-                    <ArrowBack style={{ fontSize: '80' }}> </ArrowBack>
-                </IconButton>
+            {appContext.success ? <Success /> :
+                <div>
+                    <FlashCard card={card} csitem={csitem} total={cards.length} />
+                    <div className={classes.nav}>
+                        <IconButton disabled={appContext.cardIndex === 1} onClick={(e) => {
+                            e.preventDefault();
+                            audioObj.pause();
+                            appContext.setCardIndex(appContext.cardIndex - 1);
+                        }}>
+                            <ArrowBack style={{ fontSize: '80' }}> </ArrowBack>
+                        </IconButton>
 
-                <Tooltip title='Volume should be on for replay'>
-                    <IconButton disabled={!appContext.volume} aria-label="play/pause" onClick={() => { appContext.volume && audioObj.play() }}>
-                        {/* <PlayArrow style={{fontSize:'80'}}>Play</PlayArrow> */}
-                        <Replay style={{ fontSize: '80' }}></Replay>
-                    </IconButton>
-                </Tooltip>
+                        <Tooltip title='Volume should be on for replay'>
+                            <IconButton disabled={!appContext.volume} aria-label="play/pause" onClick={() => { appContext.volume && audioObj.play() }}>
+                                {/* <PlayArrow style={{fontSize:'80'}}>Play</PlayArrow> */}
+                                <Replay style={{ fontSize: '80' }}></Replay>
+                            </IconButton>
+                        </Tooltip>
 
 
-                <IconButton disabled={appContext.cardIndex === cards.length} onClick={(e) => {
-                    e.preventDefault();
-                    audioObj.pause();
-                    appContext.setCardIndex(appContext.cardIndex + 1);
-                }}>
-                {/* {transitions.map(({item, props, key})=>{
+                        <IconButton onClick={(e) => {
+                            e.preventDefault();
+                            audioObj.pause();
+                            if (appContext.cardIndex === cards.length) {
+                                console.log('Success');
+                                appContext.setSuccess(true);
+                            } else {
+                                appContext.setCardIndex(appContext.cardIndex + 1);
+                            }
+                        }}>
+                            {/* {transitions.map(({item, props, key})=>{
                     const Card = cards[item]
                     return <Card key={key}></Card> 
                 })} */}
-                    <ArrowForward style={{ fontSize: '80' }}>Next</ArrowForward>
-                </IconButton>
-
-            </div>
+                            <ArrowForward style={{ fontSize: '80' }}>Next</ArrowForward>
+                        </IconButton>
+                    </div>
+                </div>
+            }
         </div>
     )
 }
