@@ -7,6 +7,7 @@ import { AppState } from './state';
 import { useTransition } from 'react-spring';
 import FlashCard from './card';
 import Success from './success';
+import localForage from "localforage";
 
 
 const useStyles = makeStyles(() => ({
@@ -120,12 +121,21 @@ const Cards = () => {
                         </Tooltip>
 
 
-                        <IconButton onClick={(e) => {
+                        <IconButton onClick={async (e) => {
                             e.preventDefault();
                             audioObj.pause();
                             if (appContext.cardIndex === cards.length) {
                                 console.log('Success');
                                 appContext.setSuccess(true);
+                                const completedCardSets = await localForage.getItem('completed_card_sets');
+                                console.log(completedCardSets);
+                                if (completedCardSets === null) {
+                                    await localForage.setItem('completed_card_sets', [csitem.id]);
+                                } else {
+                                    if (completedCardSets.indexOf(csitem.id) === -1) {
+                                        await localForage.setItem('completed_card_sets', completedCardSets.concat(csitem.id));
+                                    }
+                                }
                             } else {
                                 appContext.setCardIndex(appContext.cardIndex + 1);
                             }
