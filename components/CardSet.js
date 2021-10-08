@@ -1,16 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
-import {cardSet} from './constants';
+//import {cardSet} from './constants';
+import { getCardSets } from '../backend/supabase_client';
 // import Read from './read';
 // import Write from './write';
 // import Speak from './speak';
 
 //const images = cardset.map((card)=>{return{...card}});
 
-const images = cardSet;
+//const images = cardSet;
+
+
 
 /* #region old */
 // const images = [
@@ -109,12 +112,21 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function CardSet() {
+
+  let [cardSet, setCardSet] = useState([]);
+
+  useEffect(()=>{
+    getCardSets().then((cardSets)=>setCardSet(cardSets));
+    getCardSets().then(setCardSet);
+  },[])
+  
+
   const classes = useStyles();
 
   console.log('At button bases');
   return (
     <div className={classes.root}>
-      {images.map((image) => (
+        {cardSet.map((image) => (
         <ButtonBase
           focusRipple
           key={image.title}
