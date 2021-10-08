@@ -1,33 +1,42 @@
 {
   "name": "TFC",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html --open"
+    "start": "parcel index.html --open",
+    "update-types": "openapi-typescript https://zypqpxrjsuvfzkaialbb.supabase.co/rest/v1/?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMTIxMzgwMCwiZXhwIjoxOTQ2Nzg5ODAwfQ.Z0-jjmyTNDVmrccMMzISFs3JTrpVyHPbpP0U6cET6a0 --output types/supabase.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/plugin-transform-runtime": "^7.12.10",
-    "@babel/runtime": "^7.12.5",
-    "parcel-bundler": "^1.12.4"
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@types/react": "^17",
+    "@types/react-dom": "^17",
+    "parcel": "^2.0.0-rc.0",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
   },
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.4.1",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/styles": "^4.10.0",
-    "fontsource-roboto": "^3.0.3",
+    "@supabase/supabase-js": "^1.24.0",
     "localforage": "^1.9.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-lottie": "^1.2.3",
-    "react-qr-reader": "^2.2.1",
+    "react": "^17",
+    "react-dom": "^17",
     "react-router-dom": "^5.2.0",
-    "react-spring": "^8.0.27",
-    "react-transition-group": "^4.4.1"
-  }
+    "react-spring": "^9.2.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shanthisa/tamil.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shanthisa/tamil/issues"
+  },
+  "homepage": "https://github.com/shanthisa/tamil#readme",
+  "description": ""
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import Lottie from 'react-lottie';
+import  {Player} from '@lottiefiles/react-lottie-player';
 import * as animationData from '../images/winning-cup.json';
 
 import { makeStyles } from '@material-ui/styles';
@@ -22,11 +22,16 @@ const Success = () => {
     const classes = useStyle();
     return (
         <div className = {classes.success}>
-            <Lottie 
+            {/* <Lottie 
             options = {{animationData : animationData, loop: false, autoplay: true}}
             height={310}
             width={300}
-            ></Lottie>
+            ></Lottie> */}
+            <Player 
+            autoplay
+            keepLastFrame
+            src= {animationData}
+            style={{height:'310px', width:'300px'}} />
         
             <Typography>
             <Link to="/">

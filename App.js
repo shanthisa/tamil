@@ -5,7 +5,7 @@ import Cards from './components/cards';
 import Contact from './components/contact';
 import Header from './components/header';
 import Home from './components/home';
-import QRScan from './components/QRScan';
+// import QRScan from './components/QRScan';
 import { AppTitleContextProvider } from './components/state';
 
 
@@ -67,7 +67,7 @@ function App() {
             <Route path='/speak' component={Speak} />
             <Route path='/flashCards' component={flashCards} /> */}
             <Route path='/contact' component={Contact}></Route>
-            <Route path = '/qrscan' component = {QRScan}></Route>
+            {/* <Route path = '/qrscan' component = {QRScan}></Route> */}
         </Switch>
         </Grid>
         </div>

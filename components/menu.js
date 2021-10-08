@@ -20,8 +20,8 @@ const menuItems = [{text: 'Home', link: '/'},
 {text: 'எழுத்துக்கள்/letters', link:'/cardset/எழுத்துக்கள்'},
 {text: 'பழங்கள்/Fruits', link:'/cardset/பழங்கள்'},
 {text: 'வண்ணங்கள்/Colours', link:'/cardset/வண்ணங்கள்'},
-{text: 'விலங்குகள்/animals', link:'/cardset/விலங்குகள்'},
-{text: 'QR Scan', link:'/qrscan'}]
+{text: 'விலங்குகள்/animals', link:'/cardset/விலங்குகள்'}]
+// {text: 'QR Scan', link:'/qrscan'}]
 
 
 
