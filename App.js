@@ -62,7 +62,7 @@ function App() {
         <hr />
         <Switch>
             <Route exact path='/' component={Home} /> 
-            <Route path='/cardset/:name' component={Cards} />
+            <Route path='/cardset/:cardsetName' component={Cards} />
             {/* <Route path='/write' component={Write} />
             <Route path='/speak' component={Speak} />
             <Route path='/flashCards' component={flashCards} /> */}

@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const FlashCard = ({ card, csitem, total }) => {
+const FlashCard = ({ card, total }) => {
     const classes = useStyles();
     const appContext = useContext(AppState);
     const volume = appContext.volume;

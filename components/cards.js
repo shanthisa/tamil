@@ -4,10 +4,11 @@ import { cardSet, flashcards } from './constants';
 import { useParams } from 'react-router-dom';
 import { ArrowBack, ArrowForward, Replay, PlayArrow, VolumeMute, VolumeUp } from '@material-ui/icons';
 import { AppState } from './state';
-import { useTransition } from 'react-spring';
 import FlashCard from './card';
 import Success from './success';
 import localForage from "localforage";
+import { getCards } from '../backend/supabase_client';
+
 
 
 const useStyles = makeStyles(() => ({
@@ -67,7 +68,7 @@ function selectFlashCards(cardSetID) {
 //     })[0];
 // }
 
-const selectCard = (cards, cardIndex) => cards.find((c) => (c.id === cardIndex));
+//const selectCard = (cards, cardIndex) => cards.find((c) => (c.id === cardIndex));
 
 const Cards = () => {
     // debugger
@@ -75,15 +76,57 @@ const Cards = () => {
     // const [cardIndex, setCardIndex] = useState(1);
 
     const classes = useStyles();
-    let { name } = useParams();
+    let { cardsetName } = useParams();
     const appContext = useContext(AppState);
 
-    let csitem = selectCardSet(name, cardsetItems)
-    let cards = selectFlashCards(csitem.id);
-    let card = selectCard(cards, appContext.cardIndex);
-    console.log(`card index is ${appContext.cardIndex}`);
-    let audioURL = appContext.success ? '/audio/success.mp3' : card.url;
-    let audioObj = new Audio(audioURL);
+    // let csitem = selectCardSet(name, cardsetItems)
+    // let cards = selectFlashCards(csitem.id);
+    // let card = selectCard(cards, appContext.cardIndex);
+
+
+    let [cards, setCards] = useState([]);
+    let [cardset, setCardset] = useState(null);
+    let [cardIndex, setCardIndex] = useState(0);
+    let audioObj;
+
+    const resetState = () => {
+        setCards([]);
+        setCardset(null);
+        setCardIndex(0);
+        audioObj = undefined;
+    }
+
+    useEffect(() => {
+        resetState();
+        getCards(cardsetName).then((cardsdata) => {
+            console.log(cardsdata.cardset);
+            setCards(cardsdata.cards);
+            console.log(cardsdata.cards);
+            setCardset(cardsdata.cardset);
+        }).catch(() => {
+            console.log("catch in useEffect");
+            resetState();
+
+        });
+    }, [cardsetName])
+
+    let card = cards[cardIndex];
+
+
+    console.log(`card index is ${cardIndex}`);
+    if (card !== undefined) {
+        let audioURL = appContext.success ? '/audio/success.mp3' : card.audio;
+        audioObj = new Audio(audioURL);
+    } else {
+
+    }
+    useEffect(() => {
+        if (audioObj !== undefined) {
+            appContext.setAppTitle(cardsetName);
+            audioObj.addEventListener("canplaythrough", () => { appContext.volume ? audioObj.play() : audioObj.VolumeMute });
+        }
+
+    });
 
     console.log(cards);
 
@@ -93,22 +136,19 @@ const Cards = () => {
     //     leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
     //   })
 
-    useEffect(() => {
-        appContext.setAppTitle(name);
-        audioObj.addEventListener("canplaythrough", () => { appContext.volume ? audioObj.play() : audioObj.VolumeMute });
-    });
 
+    if (cards.length == 0 || card == undefined) return <div>Loading.. </div>
     return (
         <div className={classes.cards}>
             {appContext.success ?
                 <Success /> :
                 <div>
-                    <FlashCard card={card} csitem={csitem} total={cards.length} />
+                    <FlashCard card={card} total={cards.length} />
                     <div className={classes.nav}>
-                        <IconButton disabled={appContext.cardIndex === 1} onClick={(e) => {
+                        <IconButton disabled={cardIndex === 0} onClick={(e) => {
                             e.preventDefault();
                             audioObj.pause();
-                            appContext.setCardIndex(appContext.cardIndex - 1);
+                            setCardIndex(cardIndex - 1);
                         }}>
                             <ArrowBack style={{ fontSize: '80' }}> </ArrowBack>
                         </IconButton>
@@ -124,20 +164,20 @@ const Cards = () => {
                         <IconButton onClick={async (e) => {
                             e.preventDefault();
                             audioObj.pause();
-                            if (appContext.cardIndex === cards.length) {
+                            if (cardIndex === cards.length - 1) {
                                 console.log('Success');
                                 appContext.setSuccess(true);
                                 const completedCardSets = await localForage.getItem('completed_card_sets');
                                 console.log(completedCardSets);
                                 if (completedCardSets === null) {
-                                    await localForage.setItem('completed_card_sets', [csitem.id]);
+                                    await localForage.setItem('completed_card_sets', [cardset.id]);
                                 } else {
-                                    if (completedCardSets.indexOf(csitem.id) === -1) {
-                                        await localForage.setItem('completed_card_sets', completedCardSets.concat(csitem.id));
+                                    if (completedCardSets.indexOf(cardset.id) === -1) {
+                                        await localForage.setItem('completed_card_sets', completedCardSets.concat(cardset.id));
                                     }
                                 }
                             } else {
-                                appContext.setCardIndex(appContext.cardIndex + 1);
+                                setCardIndex(cardIndex + 1);
                             }
                         }}>
                             {/* {transitions.map(({item, props, key})=>{

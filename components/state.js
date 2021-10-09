@@ -5,18 +5,18 @@ import {useHistory} from 'react-router-dom';
 const setupContext = () => {
     
     const [appTitle, setAppTitle] = useState('Tamil Flash Cards');
-    const [cardIndex, setCardIndex] = useState(1);
     const [volume, setVolume] = useState(true);
     const [success, setSuccess] = useState(false);
     const [qrData, setqrData] = useState('');
     const resetState = () => {
+        
         setAppTitle('Tamil Flash Cards');
-        setCardIndex(1);
         setVolume(true);
         setSuccess(false);
+        
     }
    
-    return {appTitle, setAppTitle, cardIndex, setCardIndex, volume, setVolume, success, setSuccess, resetState, qrData, setqrData};
+    return {appTitle, setAppTitle, volume, setVolume, success, setSuccess, qrData, setqrData, resetState};
 }
 
 const onPageChange = (contextObj) => {

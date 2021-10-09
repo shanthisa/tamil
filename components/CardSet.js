@@ -117,7 +117,7 @@ export default function CardSet() {
 
   useEffect(()=>{
     getCardSets().then((cardSets)=>setCardSet(cardSets));
-    getCardSets().then(setCardSet);
+    //getCardSets().then(setCardSet);
   },[])
   
 
