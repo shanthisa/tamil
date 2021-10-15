@@ -6,8 +6,8 @@ npm install
 npx parcel build index.html
 # mkdir -p dist/mp3s
 # cp mp3s/* dist/mp3s
-# mkdir -p dist/audio
-# cp audio/* dist/audio
+mkdir -p dist/assets
+cp assets/* dist/assets
 # mkdir -p dist/images
 # cp images/* dist/images
 # while creating the file first time, run in command prompt chmod +x build.sh to give executable rights

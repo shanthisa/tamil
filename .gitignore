@@ -4,3 +4,6 @@ node_modules
 dist
 2_QR
 .parcel-cache
+imgs
+mp3s
+.env

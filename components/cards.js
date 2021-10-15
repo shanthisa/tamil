@@ -115,7 +115,7 @@ const Cards = () => {
 
     console.log(`card index is ${cardIndex}`);
     if (card !== undefined) {
-        let audioURL = appContext.success ? '/audio/success.mp3' : card.audio;
+        let audioURL = appContext.success ? '/assets/success.mp3' : card.audio;
         audioObj = new Audio(audioURL);
         if(!appContext.success) {
             audioObj.crossOrigin = "anonymous";
