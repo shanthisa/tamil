@@ -32,7 +32,6 @@ const Menu = () => {
     const [state, setState] = React.useState({ left: false });
 
     const toggleDrawer = (anchor, open) => (event) => {
-        console.log('toggleDrawer', arguments);
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) { return };
         setState({ ...state, [anchor]: open });
     }
