@@ -1,6 +1,6 @@
 import React from 'react';
 import  {Player} from '@lottiefiles/react-lottie-player';
-import * as animationData from '../images/winning-cup.json';
+import * as animationData from '../imgs/winning-cup.json';
 
 import { makeStyles } from '@material-ui/styles';
 

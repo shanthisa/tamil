@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundPosition: 'center 40%',
+    backgroundPosition: 'center 40%', 
   },
   imageBackdrop: {
     position: 'absolute',
@@ -113,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CardSet() {
 
-  let [cardSet, setCardSet] = useState([]);
+  let [cardSets, setCardSet] = useState([]);
 
   useEffect(()=>{
     getCardSets().then((cardSets)=>setCardSet(cardSets));
@@ -126,10 +126,10 @@ export default function CardSet() {
   console.log('At button bases');
   return (
     <div className={classes.root}>
-        {cardSet.map((image) => (
+        {cardSets.map((cardSet) => (
         <ButtonBase
           focusRipple
-          key={image.title}
+          key={cardSet.title}
           className={classes.image}
           focusVisibleClassName={classes.focusVisible}
           style={{
@@ -137,14 +137,11 @@ export default function CardSet() {
           }}
           
         >
-        <Link to={'/cardset/'+image.title}>
-        {console.log('image title', image.title)}
-          <span
-            className={classes.imageSrc}
-            style={{
-              backgroundImage: `url(${image.imageSrc})`,
-            }}
-          />
+        <Link to={'/cardset/'+cardSet.title}>
+        {console.log(`image title ${cardSet.title} image url ${cardSet.image_url}`)}
+          <span className={classes.imageSrc}>
+          <img src={cardSet.image_url} crossOrigin="anonymous" style={{width: "100%", height: "auto"}}/>
+          </span>
           <span className={classes.imageBackdrop} />
           <span className={classes.imageButton}>
             <Typography
@@ -153,9 +150,9 @@ export default function CardSet() {
               color="inherit"
               className={classes.imageTitle}
             >
-              {image.title}
+              {cardSet.title}
               <p>
-              {image.subtitle}
+              {cardSet.subtitle}
               </p>
              
               <span className={classes.imageMarked} />

@@ -42,18 +42,18 @@ const useStyles = makeStyles(() => ({
     //     fontSize: '140'
     // },
 }))
-const cardsetItems = cardSet.map((cardSetItems) => { return { ...cardSetItems } });
-const flashCards = flashcards.map((cards) => { return { ...cards } });
+// const cardsetItems = cardSet.map((cardSetItems) => { return { ...cardSetItems } });
+//const flashCards = flashcards.map((cards) => { return { ...cards } });
 
 
 
-function selectCardSet(name, cardsetItems) {
-    return cardsetItems.filter((cardsetItem) => { if (name === cardsetItem.title) return cardsetItem })[0];
-}
+// function selectCardSet(name, cardsetItems) {
+//     return cardsetItems.filter((cardsetItem) => { if (name === cardsetItem.title) return cardsetItem })[0];
+// }
 
-function selectFlashCards(cardSetID) {
-    return flashCards.filter((cards) => { if (cardSetID === cards.cardSetID) return cards });
-}
+// function selectFlashCards(cardSetID) {
+//     return flashCards.filter((cards) => { if (cardSetID === cards.cardSetID) return cards });
+// }
 
 // const betterCardSelect = (cards, idx) => cards.find((c) => c.id === idx);
 
@@ -99,9 +99,9 @@ const Cards = () => {
     useEffect(() => {
         resetState();
         getCards(cardsetName).then((cardsdata) => {
-            console.log(cardsdata.cardset);
+            console.log('getcards -> cardset',cardsdata.cardset);
             setCards(cardsdata.cards);
-            console.log(cardsdata.cards);
+            console.log('getcards -> cards',cardsdata.cards);
             setCardset(cardsdata.cardset);
         }).catch(() => {
             console.log("catch in useEffect");
@@ -117,6 +117,9 @@ const Cards = () => {
     if (card !== undefined) {
         let audioURL = appContext.success ? '/audio/success.mp3' : card.audio;
         audioObj = new Audio(audioURL);
+        if(!appContext.success) {
+            audioObj.crossOrigin = "anonymous";
+        }
     } else {
 
     }
@@ -167,6 +170,7 @@ const Cards = () => {
                             if (cardIndex === cards.length - 1) {
                                 console.log('Success');
                                 appContext.setSuccess(true);
+                                setCardIndex(0);
                                 const completedCardSets = await localForage.getItem('completed_card_sets');
                                 console.log(completedCardSets);
                                 if (completedCardSets === null) {

@@ -20,8 +20,8 @@ const useStyles = makeStyles(() => ({
     },
     
     media: {
-        height: 0,
-        paddingTop: '55.25%', //(16:9)
+        width: "100%",
+        textAlign: "center",
         backgroundSize: 'contain',
     },
 }));
@@ -44,8 +44,9 @@ const FlashCard = ({ card, total }) => {
             {
                 (card.image !== undefined) ?
                     <CardMedia className={classes.media}
-                        image={card.image}
-                        hidden={card.image !== undefined} /> : <></>
+                        hidden={card.image !== undefined} >
+                            <img src={card.image} crossOrigin="anonymous" style={{height: 350, width: "auto"}}/>
+                        </CardMedia> : <></>
             }
 
 
