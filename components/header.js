@@ -18,8 +18,11 @@ const Header = () => {
        
             <AppBar position='fixed'>
                 <Toolbar>
+                   
                     <Menu />
+                    
                     <Typography className={classes.TypoStyle}>{appTitle.appTitle}</Typography>
+                    <span><img src="/assets/logo_512.png" width="60px" height="auto"></img></span>
                 </Toolbar>
             </AppBar>
         

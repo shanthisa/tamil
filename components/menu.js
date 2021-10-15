@@ -40,6 +40,9 @@ const Menu = () => {
     const list = (anchor) => {
         return (
             <div onClick={toggleDrawer(anchor, false)} onKeyDown={toggleDrawer(anchor, false)}>
+                <div style={{textAlign:'center'}}>
+                <img src="/assets/logo_512.png" height="80px" width="auto" />
+                </div>
                 <List>
                     {menuItems.map(({text,link}) => (
 
